@@ -1,8 +1,13 @@
-# blank
+# IT Service Catalog
 
-blank
+## Requirements
+Nodejs 
+Postgresql
 
-## Attributes
-
-- **Database**: mongodb
-- **Storage Adapter**: localDisk
+Create postgres database
+Checkout project
+cd ./it-service-catalog
+npm install
+npm run dev
+npm run build
+npm run start
