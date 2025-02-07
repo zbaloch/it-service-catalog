@@ -17,5 +17,11 @@ export const Databases: CollectionConfig = {
       label: 'Description',
       type: 'textarea',
     },
+    {
+      name: 'server',
+      label: 'Server',
+      type: 'relationship',
+      relationTo: 'servers',
+    },
   ],
 }

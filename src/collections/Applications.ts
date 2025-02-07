@@ -12,5 +12,16 @@ export const Applications: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'description',
+      label: 'Description',
+      type: 'textarea',
+    },
+    {
+      name: 'databases',
+      label: 'Databases',
+      type: 'relationship',
+      relationTo: 'databases',
+    },
   ],
 }

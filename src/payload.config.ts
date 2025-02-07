@@ -18,7 +18,7 @@ import { CustomerTypes } from './collections/CustomerTypes'
 import { LifecycleStatus } from './collections/LifecycleStatus'
 import { ServiceCriticality } from './collections/ServiceCriticality'
 import { ServiceSLAs } from './collections/ServiceSLAs'
-import { ServiceSupportedHours } from './collections/ServiceSupportedHours'
+import { ServiceAvailability } from './collections/ServiceAvailability'
 import { TechnologyTeams } from './collections/TechnologyTeams'
 import { Vendors } from './collections/Vendors'
 import { Servers } from './collections/Servers'
@@ -46,7 +46,7 @@ export default buildConfig({
     LifecycleStatus,
     ServiceCriticality,
     ServiceSLAs,
-    ServiceSupportedHours,
+    ServiceAvailability,
     TechnologyTeams,
     Vendors,
     Servers,

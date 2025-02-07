@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const ServiceSupportedHours: CollectionConfig = {
-  slug: 'service-supported-hours',
+export const ServiceAvailability: CollectionConfig = {
+  slug: 'service-availability',
   admin: {
     useAsTitle: 'name',
   },

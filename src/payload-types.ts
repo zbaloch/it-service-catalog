@@ -22,7 +22,7 @@ export interface Config {
     'lifecycle-status': LifecycleStatus;
     'service-criticality': ServiceCriticality;
     'service-slas': ServiceSla;
-    'service-supported-hours': ServiceSupportedHour;
+    'service-availability': ServiceAvailability;
     'technology-teams': TechnologyTeam;
     vendors: Vendor;
     servers: Server;
@@ -44,7 +44,7 @@ export interface Config {
     'lifecycle-status': LifecycleStatusSelect<false> | LifecycleStatusSelect<true>;
     'service-criticality': ServiceCriticalitySelect<false> | ServiceCriticalitySelect<true>;
     'service-slas': ServiceSlasSelect<false> | ServiceSlasSelect<true>;
-    'service-supported-hours': ServiceSupportedHoursSelect<false> | ServiceSupportedHoursSelect<true>;
+    'service-availability': ServiceAvailabilitySelect<false> | ServiceAvailabilitySelect<true>;
     'technology-teams': TechnologyTeamsSelect<false> | TechnologyTeamsSelect<true>;
     vendors: VendorsSelect<false> | VendorsSelect<true>;
     servers: ServersSelect<false> | ServersSelect<true>;
@@ -130,6 +130,16 @@ export interface Service {
   name: string;
   description?: string | null;
   category?: (number | null) | ServiceCategory;
+  'service-criticality'?: (number | null) | ServiceCriticality;
+  'service-slas'?: (number | null) | ServiceSla;
+  'service-sla'?: (number | null) | ServiceSla;
+  'service-availability'?: (number | null) | ServiceAvailability;
+  applications?: (number | null) | Application;
+  users?: (number | null) | CustomerType;
+  'business-team'?: (number | null) | BusinessTeam;
+  'technology-team'?: (number | null) | TechnologyTeam;
+  vendor?: (number | null) | Vendor;
+  'lifecycle-status'?: (number | null) | LifecycleStatus;
   updatedAt: string;
   createdAt: string;
 }
@@ -138,61 +148,6 @@ export interface Service {
  * via the `definition` "service-categories".
  */
 export interface ServiceCategory {
-  id: number;
-  name: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "applications".
- */
-export interface Application {
-  id: number;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "databases".
- */
-export interface Database {
-  id: number;
-  name: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "business-teams".
- */
-export interface BusinessTeam {
-  id: number;
-  name: string;
-  description?: string | null;
-  head?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "customer-types".
- */
-export interface CustomerType {
-  id: number;
-  name: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "lifecycle-status".
- */
-export interface LifecycleStatus {
   id: number;
   name: string;
   description?: string | null;
@@ -222,11 +177,79 @@ export interface ServiceSla {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "service-supported-hours".
+ * via the `definition` "service-availability".
  */
-export interface ServiceSupportedHour {
+export interface ServiceAvailability {
   id: number;
   name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications".
+ */
+export interface Application {
+  id: number;
+  name: string;
+  description?: string | null;
+  databases?: (number | null) | Database;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "databases".
+ */
+export interface Database {
+  id: number;
+  name: string;
+  description?: string | null;
+  server?: (number | null) | Server;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "servers".
+ */
+export interface Server {
+  id: number;
+  name: string;
+  type?: (number | null) | ServerType;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "server-types".
+ */
+export interface ServerType {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-types".
+ */
+export interface CustomerType {
+  id: number;
+  name: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business-teams".
+ */
+export interface BusinessTeam {
+  id: number;
+  name: string;
+  description?: string | null;
+  head?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -255,21 +278,12 @@ export interface Vendor {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "servers".
+ * via the `definition` "lifecycle-status".
  */
-export interface Server {
+export interface LifecycleStatus {
   id: number;
   name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "server-types".
- */
-export interface ServerType {
-  id: number;
-  name: string;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -325,8 +339,8 @@ export interface PayloadLockedDocument {
         value: number | ServiceSla;
       } | null)
     | ({
-        relationTo: 'service-supported-hours';
-        value: number | ServiceSupportedHour;
+        relationTo: 'service-availability';
+        value: number | ServiceAvailability;
       } | null)
     | ({
         relationTo: 'technology-teams';
@@ -427,6 +441,16 @@ export interface ServicesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   category?: T;
+  'service-criticality'?: T;
+  'service-slas'?: T;
+  'service-sla'?: T;
+  'service-availability'?: T;
+  applications?: T;
+  users?: T;
+  'business-team'?: T;
+  'technology-team'?: T;
+  vendor?: T;
+  'lifecycle-status'?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -436,6 +460,8 @@ export interface ServicesSelect<T extends boolean = true> {
  */
 export interface ApplicationsSelect<T extends boolean = true> {
   name?: T;
+  description?: T;
+  databases?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -446,6 +472,7 @@ export interface ApplicationsSelect<T extends boolean = true> {
 export interface DatabasesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  server?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -511,9 +538,9 @@ export interface ServiceSlasSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "service-supported-hours_select".
+ * via the `definition` "service-availability_select".
  */
-export interface ServiceSupportedHoursSelect<T extends boolean = true> {
+export interface ServiceAvailabilitySelect<T extends boolean = true> {
   name?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -545,6 +572,7 @@ export interface VendorsSelect<T extends boolean = true> {
  */
 export interface ServersSelect<T extends boolean = true> {
   name?: T;
+  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }

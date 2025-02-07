@@ -18,10 +18,14 @@ export default async function HomePage() {
   return (
     <>
       <div>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <a href={payloadConfig.routes.admin}>Admin panel</a>
-        <a href="https://payloadcms.com/docs">Documentation</a>
+        {!user && <p>Welcome to your new project.</p>}
+        {user && <p>Welcome back, {user.email}</p>}
+        <p>
+          <a href={payloadConfig.routes.admin}>Admin panel</a>
+        </p>
+        <p>
+          <a href="https://payloadcms.com/docs">Documentation</a>
+        </p>
       </div>
     </>
   )

@@ -12,5 +12,11 @@ export const Servers: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'type',
+      label: 'Type',
+      type: 'relationship',
+      relationTo: 'server-types',
+    },
   ],
 }
