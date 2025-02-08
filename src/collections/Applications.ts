@@ -18,10 +18,22 @@ export const Applications: CollectionConfig = {
       type: 'textarea',
     },
     {
+      name: 'server',
+      label: 'Server',
+      type: 'relationship',
+      relationTo: 'servers',
+    },
+    {
       name: 'databases',
       label: 'Databases',
       type: 'relationship',
       relationTo: 'databases',
+    },
+    {
+      name: 'lifecycle-status',
+      label: 'Lifecycle Status',
+      type: 'relationship',
+      relationTo: 'lifecycle-status',
     },
   ],
 }

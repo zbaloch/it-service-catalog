@@ -17,12 +17,11 @@ import { BusinessTeams } from './collections/BusinessTeams'
 import { CustomerTypes } from './collections/CustomerTypes'
 import { LifecycleStatus } from './collections/LifecycleStatus'
 import { ServiceCriticality } from './collections/ServiceCriticality'
-import { ServiceSLAs } from './collections/ServiceSLAs'
-import { ServiceAvailability } from './collections/ServiceAvailability'
 import { TechnologyTeams } from './collections/TechnologyTeams'
 import { Vendors } from './collections/Vendors'
 import { Servers } from './collections/Servers'
 import { ServerTypes } from './collections/ServerTypes'
+import { NetworkSegments } from './collections/NetworkSegments'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -45,12 +44,11 @@ export default buildConfig({
     CustomerTypes,
     LifecycleStatus,
     ServiceCriticality,
-    ServiceSLAs,
-    ServiceAvailability,
     TechnologyTeams,
     Vendors,
     Servers,
     ServerTypes,
+    NetworkSegments,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

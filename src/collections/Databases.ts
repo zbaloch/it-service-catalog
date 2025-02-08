@@ -23,5 +23,11 @@ export const Databases: CollectionConfig = {
       type: 'relationship',
       relationTo: 'servers',
     },
+    {
+      name: 'lifecycle-status',
+      label: 'Lifecycle Status',
+      type: 'relationship',
+      relationTo: 'lifecycle-status',
+    },
   ],
 }

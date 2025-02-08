@@ -21,12 +21,11 @@ export interface Config {
     'customer-types': CustomerType;
     'lifecycle-status': LifecycleStatus;
     'service-criticality': ServiceCriticality;
-    'service-slas': ServiceSla;
-    'service-availability': ServiceAvailability;
     'technology-teams': TechnologyTeam;
     vendors: Vendor;
     servers: Server;
     'server-types': ServerType;
+    'network-segments': NetworkSegment;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -43,12 +42,11 @@ export interface Config {
     'customer-types': CustomerTypesSelect<false> | CustomerTypesSelect<true>;
     'lifecycle-status': LifecycleStatusSelect<false> | LifecycleStatusSelect<true>;
     'service-criticality': ServiceCriticalitySelect<false> | ServiceCriticalitySelect<true>;
-    'service-slas': ServiceSlasSelect<false> | ServiceSlasSelect<true>;
-    'service-availability': ServiceAvailabilitySelect<false> | ServiceAvailabilitySelect<true>;
     'technology-teams': TechnologyTeamsSelect<false> | TechnologyTeamsSelect<true>;
     vendors: VendorsSelect<false> | VendorsSelect<true>;
     servers: ServersSelect<false> | ServersSelect<true>;
     'server-types': ServerTypesSelect<false> | ServerTypesSelect<true>;
+    'network-segments': NetworkSegmentsSelect<false> | NetworkSegmentsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -131,11 +129,8 @@ export interface Service {
   description?: string | null;
   category?: (number | null) | ServiceCategory;
   'service-criticality'?: (number | null) | ServiceCriticality;
-  'service-slas'?: (number | null) | ServiceSla;
-  'service-sla'?: (number | null) | ServiceSla;
-  'service-availability'?: (number | null) | ServiceAvailability;
   applications?: (number | null) | Application;
-  users?: (number | null) | CustomerType;
+  users?: (number | CustomerType)[] | null;
   'business-team'?: (number | null) | BusinessTeam;
   'technology-team'?: (number | null) | TechnologyTeam;
   vendor?: (number | null) | Vendor;
@@ -161,27 +156,12 @@ export interface ServiceCategory {
 export interface ServiceCriticality {
   id: number;
   name: string;
-  slas?: (number | null) | ServiceSla;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "service-slas".
- */
-export interface ServiceSla {
-  id: number;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "service-availability".
- */
-export interface ServiceAvailability {
-  id: number;
-  name: string;
+  description?: string | null;
+  uptimeTarget: string;
+  rtoTarget: string;
+  rpoTarget: string;
+  responseTimeTarget: string;
+  resolutionTimeTarget: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -193,7 +173,61 @@ export interface Application {
   id: number;
   name: string;
   description?: string | null;
+  server?: (number | null) | Server;
   databases?: (number | null) | Database;
+  'lifecycle-status'?: (number | null) | LifecycleStatus;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "servers".
+ */
+export interface Server {
+  id: number;
+  name: string;
+  type?: (number | null) | ServerType;
+  ipAddress?: string | null;
+  /**
+   * The network segment this server is a part of
+   */
+  networkSegment?: (number | null) | NetworkSegment;
+  'lifecycle-status'?: (number | null) | LifecycleStatus;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "server-types".
+ */
+export interface ServerType {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "network-segments".
+ */
+export interface NetworkSegment {
+  id: number;
+  /**
+   * Example: 10.180.x.x (CDE)
+   */
+  name: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lifecycle-status".
+ */
+export interface LifecycleStatus {
+  id: number;
+  name: string;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -206,27 +240,7 @@ export interface Database {
   name: string;
   description?: string | null;
   server?: (number | null) | Server;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "servers".
- */
-export interface Server {
-  id: number;
-  name: string;
-  type?: (number | null) | ServerType;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "server-types".
- */
-export interface ServerType {
-  id: number;
-  name: string;
+  'lifecycle-status'?: (number | null) | LifecycleStatus;
   updatedAt: string;
   createdAt: string;
 }
@@ -250,6 +264,7 @@ export interface BusinessTeam {
   name: string;
   description?: string | null;
   head?: string | null;
+  headContact?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -262,6 +277,7 @@ export interface TechnologyTeam {
   name: string;
   description?: string | null;
   head?: string | null;
+  headContact?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -271,17 +287,9 @@ export interface TechnologyTeam {
  */
 export interface Vendor {
   id: number;
-  name: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "lifecycle-status".
- */
-export interface LifecycleStatus {
-  id: number;
+  /**
+   * Name of the vendor
+   */
   name: string;
   description?: string | null;
   updatedAt: string;
@@ -335,14 +343,6 @@ export interface PayloadLockedDocument {
         value: number | ServiceCriticality;
       } | null)
     | ({
-        relationTo: 'service-slas';
-        value: number | ServiceSla;
-      } | null)
-    | ({
-        relationTo: 'service-availability';
-        value: number | ServiceAvailability;
-      } | null)
-    | ({
         relationTo: 'technology-teams';
         value: number | TechnologyTeam;
       } | null)
@@ -357,6 +357,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'server-types';
         value: number | ServerType;
+      } | null)
+    | ({
+        relationTo: 'network-segments';
+        value: number | NetworkSegment;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -442,9 +446,6 @@ export interface ServicesSelect<T extends boolean = true> {
   description?: T;
   category?: T;
   'service-criticality'?: T;
-  'service-slas'?: T;
-  'service-sla'?: T;
-  'service-availability'?: T;
   applications?: T;
   users?: T;
   'business-team'?: T;
@@ -461,7 +462,9 @@ export interface ServicesSelect<T extends boolean = true> {
 export interface ApplicationsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  server?: T;
   databases?: T;
+  'lifecycle-status'?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -473,6 +476,7 @@ export interface DatabasesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   server?: T;
+  'lifecycle-status'?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -494,6 +498,7 @@ export interface BusinessTeamsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   head?: T;
+  headContact?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -523,25 +528,12 @@ export interface LifecycleStatusSelect<T extends boolean = true> {
  */
 export interface ServiceCriticalitySelect<T extends boolean = true> {
   name?: T;
-  slas?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "service-slas_select".
- */
-export interface ServiceSlasSelect<T extends boolean = true> {
-  name?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "service-availability_select".
- */
-export interface ServiceAvailabilitySelect<T extends boolean = true> {
-  name?: T;
+  description?: T;
+  uptimeTarget?: T;
+  rtoTarget?: T;
+  rpoTarget?: T;
+  responseTimeTarget?: T;
+  resolutionTimeTarget?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -553,6 +545,7 @@ export interface TechnologyTeamsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   head?: T;
+  headContact?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -573,6 +566,9 @@ export interface VendorsSelect<T extends boolean = true> {
 export interface ServersSelect<T extends boolean = true> {
   name?: T;
   type?: T;
+  ipAddress?: T;
+  networkSegment?: T;
+  'lifecycle-status'?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -582,6 +578,16 @@ export interface ServersSelect<T extends boolean = true> {
  */
 export interface ServerTypesSelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "network-segments_select".
+ */
+export interface NetworkSegmentsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }

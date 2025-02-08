@@ -30,24 +30,6 @@ export const Services: CollectionConfig = {
       relationTo: 'service-criticality',
     },
     {
-      name: 'service-slas',
-      label: 'Service SLAs',
-      type: 'relationship',
-      relationTo: 'service-slas',
-    },
-    {
-      name: 'service-sla',
-      label: 'Service SLA',
-      type: 'relationship',
-      relationTo: 'service-slas',
-    },
-    {
-      name: 'service-availability',
-      label: 'Service Availability',
-      type: 'relationship',
-      relationTo: 'service-availability',
-    },
-    {
       name: 'applications',
       label: 'Applications',
       type: 'relationship',
@@ -58,6 +40,7 @@ export const Services: CollectionConfig = {
       label: 'Users',
       type: 'relationship',
       relationTo: 'customer-types',
+      hasMany: true,
     },
     {
       name: 'business-team',

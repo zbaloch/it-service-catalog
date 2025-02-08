@@ -13,10 +13,39 @@ export const ServiceCriticality: CollectionConfig = {
       required: true,
     },
     {
-      name: 'slas',
-      label: 'SLAs',
-      type: 'relationship',
-      relationTo: 'service-slas',
+      name: 'description',
+      label: 'Description',
+      type: 'textarea',
+    },
+    {
+      name: 'uptimeTarget',
+      label: 'Uptime Target',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'rtoTarget',
+      label: 'RTO Target (Max Downtime)',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'rpoTarget',
+      label: 'RPO Target (Max Data Loss)',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'responseTimeTarget',
+      label: 'Response Time Target',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'resolutionTimeTarget',
+      label: 'Resolution Time Target',
+      type: 'text',
+      required: true,
     },
   ],
 }

@@ -22,5 +22,10 @@ export const TechnologyTeams: CollectionConfig = {
       label: 'Unit Head',
       type: 'text',
     },
+    {
+      name: 'headContact',
+      label: 'Head Contact',
+      type: 'text',
+    },
   ],
 }

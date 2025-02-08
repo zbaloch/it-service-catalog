@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const BusinessTeams: CollectionConfig = {
-  slug: 'business-teams',
+export const NetworkSegments: CollectionConfig = {
+  slug: 'network-segments',
   admin: {
     useAsTitle: 'name',
   },
@@ -10,22 +10,15 @@ export const BusinessTeams: CollectionConfig = {
       name: 'name',
       label: 'Name',
       type: 'text',
+      admin: {
+        description: 'Example: 10.180.x.x (CDE)',
+      },
       required: true,
     },
     {
       name: 'description',
       label: 'Description',
       type: 'textarea',
-    },
-    {
-      name: 'head',
-      label: 'Unit Head',
-      type: 'text',
-    },
-    {
-      name: 'headContact',
-      label: 'Head Contact',
-      type: 'text',
     },
   ],
 }

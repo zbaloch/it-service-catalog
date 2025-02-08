@@ -11,6 +11,9 @@ export const Vendors: CollectionConfig = {
       label: 'Name',
       type: 'text',
       required: true,
+      admin: {
+        description: 'Name of the vendor',
+      },
     },
     {
       name: 'description',
