@@ -24,6 +24,16 @@ export const Databases: CollectionConfig = {
       relationTo: 'servers',
     },
     {
+      name: 'versionControl',
+      label: 'Version Control',
+      type: 'text',
+    },
+    {
+      name: 'cardholderData',
+      label: 'Cardholder Data',
+      type: 'checkbox',
+    },
+    {
       name: 'lifecycle-status',
       label: 'Lifecycle Status',
       type: 'relationship',

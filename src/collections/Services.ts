@@ -61,6 +61,11 @@ export const Services: CollectionConfig = {
       relationTo: 'vendors',
     },
     {
+      name: 'cardholderData',
+      label: 'Cardholder Data',
+      type: 'checkbox',
+    },
+    {
       name: 'lifecycle-status',
       label: 'Lifecycle Status',
       type: 'relationship',

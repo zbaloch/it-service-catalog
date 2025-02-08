@@ -12,12 +12,22 @@ export default async function HomePage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
+  const services = await payload.find({ collection: 'services' })
+
+  console.log('services', services)
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
 
   return (
     <>
       <div>
+        <div>
+          {services.docs.map((service: any) => (
+            <div key={service.id}>
+              <span>{service.name}</span>
+            </div>
+          ))}
+        </div>
         {!user && <p>Welcome to your new project.</p>}
         {user && <p>Welcome back, {user.email}</p>}
         <p>

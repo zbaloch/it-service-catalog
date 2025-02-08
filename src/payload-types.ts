@@ -134,6 +134,7 @@ export interface Service {
   'business-team'?: (number | null) | BusinessTeam;
   'technology-team'?: (number | null) | TechnologyTeam;
   vendor?: (number | null) | Vendor;
+  cardholderData?: boolean | null;
   'lifecycle-status'?: (number | null) | LifecycleStatus;
   updatedAt: string;
   createdAt: string;
@@ -175,6 +176,8 @@ export interface Application {
   description?: string | null;
   server?: (number | null) | Server;
   databases?: (number | null) | Database;
+  versionControl?: string | null;
+  cardholderData?: boolean | null;
   'lifecycle-status'?: (number | null) | LifecycleStatus;
   updatedAt: string;
   createdAt: string;
@@ -240,6 +243,8 @@ export interface Database {
   name: string;
   description?: string | null;
   server?: (number | null) | Server;
+  versionControl?: string | null;
+  cardholderData?: boolean | null;
   'lifecycle-status'?: (number | null) | LifecycleStatus;
   updatedAt: string;
   createdAt: string;
@@ -451,6 +456,7 @@ export interface ServicesSelect<T extends boolean = true> {
   'business-team'?: T;
   'technology-team'?: T;
   vendor?: T;
+  cardholderData?: T;
   'lifecycle-status'?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -464,6 +470,8 @@ export interface ApplicationsSelect<T extends boolean = true> {
   description?: T;
   server?: T;
   databases?: T;
+  versionControl?: T;
+  cardholderData?: T;
   'lifecycle-status'?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -476,6 +484,8 @@ export interface DatabasesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   server?: T;
+  versionControl?: T;
+  cardholderData?: T;
   'lifecycle-status'?: T;
   updatedAt?: T;
   createdAt?: T;
