@@ -28,6 +28,7 @@ export const Applications: CollectionConfig = {
       label: 'Databases',
       type: 'relationship',
       relationTo: 'databases',
+      hasMany: true,
     },
     {
       name: 'versionControl',
@@ -44,6 +45,12 @@ export const Applications: CollectionConfig = {
       label: 'Lifecycle Status',
       type: 'relationship',
       relationTo: 'lifecycle-status',
+    },
+    {
+      name: 'vendor',
+      label: 'Vendor',
+      type: 'relationship',
+      relationTo: 'vendors',
     },
   ],
 }

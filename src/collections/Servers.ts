@@ -33,6 +33,13 @@ export const Servers: CollectionConfig = {
       },
     },
     {
+      name: 'installedSoftware',
+      label: 'Installed Software',
+      type: 'relationship',
+      relationTo: 'software',
+      hasMany: true,
+    },
+    {
       name: 'lifecycle-status',
       label: 'Lifecycle Status',
       type: 'relationship',

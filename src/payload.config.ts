@@ -22,6 +22,7 @@ import { Vendors } from './collections/Vendors'
 import { Servers } from './collections/Servers'
 import { ServerTypes } from './collections/ServerTypes'
 import { NetworkSegments } from './collections/NetworkSegments'
+import { Software } from './collections/Software'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -49,6 +50,7 @@ export default buildConfig({
     Servers,
     ServerTypes,
     NetworkSegments,
+    Software,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

@@ -24,7 +24,7 @@ export const Services: CollectionConfig = {
       relationTo: 'service-categories',
     },
     {
-      name: 'service-criticality',
+      name: 'serviceCriticality',
       label: 'Service Criticality',
       type: 'relationship',
       relationTo: 'service-criticality',
@@ -34,6 +34,13 @@ export const Services: CollectionConfig = {
       label: 'Applications',
       type: 'relationship',
       relationTo: 'applications',
+      hasMany: true,
+    },
+    {
+      name: 'networkSegment',
+      label: 'Network Segment',
+      type: 'relationship',
+      relationTo: 'network-segments',
     },
     {
       name: 'users',
@@ -43,16 +50,18 @@ export const Services: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'business-team',
-      label: 'Business Owner',
+      name: 'businessTeams',
+      label: 'Business Owners',
       type: 'relationship',
       relationTo: 'business-teams',
+      hasMany: true,
     },
     {
-      name: 'technology-team',
-      label: 'Technology Team',
+      name: 'technologyTeams',
+      label: 'Technology Teams',
       type: 'relationship',
       relationTo: 'technology-teams',
+      hasMany: true,
     },
     {
       name: 'vendor',
@@ -66,7 +75,7 @@ export const Services: CollectionConfig = {
       type: 'checkbox',
     },
     {
-      name: 'lifecycle-status',
+      name: 'lifecycleStatus',
       label: 'Lifecycle Status',
       type: 'relationship',
       relationTo: 'lifecycle-status',

@@ -26,6 +26,7 @@ export interface Config {
     servers: Server;
     'server-types': ServerType;
     'network-segments': NetworkSegment;
+    software: Software;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -47,6 +48,7 @@ export interface Config {
     servers: ServersSelect<false> | ServersSelect<true>;
     'server-types': ServerTypesSelect<false> | ServerTypesSelect<true>;
     'network-segments': NetworkSegmentsSelect<false> | NetworkSegmentsSelect<true>;
+    software: SoftwareSelect<false> | SoftwareSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -128,14 +130,15 @@ export interface Service {
   name: string;
   description?: string | null;
   category?: (number | null) | ServiceCategory;
-  'service-criticality'?: (number | null) | ServiceCriticality;
-  applications?: (number | null) | Application;
+  serviceCriticality?: (number | null) | ServiceCriticality;
+  applications?: (number | Application)[] | null;
+  networkSegment?: (number | null) | NetworkSegment;
   users?: (number | CustomerType)[] | null;
-  'business-team'?: (number | null) | BusinessTeam;
-  'technology-team'?: (number | null) | TechnologyTeam;
+  businessTeams?: (number | BusinessTeam)[] | null;
+  technologyTeams?: (number | TechnologyTeam)[] | null;
   vendor?: (number | null) | Vendor;
   cardholderData?: boolean | null;
-  'lifecycle-status'?: (number | null) | LifecycleStatus;
+  lifecycleStatus?: (number | null) | LifecycleStatus;
   updatedAt: string;
   createdAt: string;
 }
@@ -175,10 +178,11 @@ export interface Application {
   name: string;
   description?: string | null;
   server?: (number | null) | Server;
-  databases?: (number | null) | Database;
+  databases?: (number | Database)[] | null;
   versionControl?: string | null;
   cardholderData?: boolean | null;
   'lifecycle-status'?: (number | null) | LifecycleStatus;
+  vendor?: (number | null) | Vendor;
   updatedAt: string;
   createdAt: string;
 }
@@ -195,6 +199,7 @@ export interface Server {
    * The network segment this server is a part of
    */
   networkSegment?: (number | null) | NetworkSegment;
+  installedSoftware?: (number | Software)[] | null;
   'lifecycle-status'?: (number | null) | LifecycleStatus;
   updatedAt: string;
   createdAt: string;
@@ -217,6 +222,32 @@ export interface NetworkSegment {
   id: number;
   /**
    * Example: 10.180.x.x (CDE)
+   */
+  name: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "software".
+ */
+export interface Software {
+  id: number;
+  name: string;
+  description?: string | null;
+  vendor?: (number | null) | Vendor;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vendors".
+ */
+export interface Vendor {
+  id: number;
+  /**
+   * Name of the vendor
    */
   name: string;
   description?: string | null;
@@ -288,20 +319,6 @@ export interface TechnologyTeam {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "vendors".
- */
-export interface Vendor {
-  id: number;
-  /**
-   * Name of the vendor
-   */
-  name: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -366,6 +383,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'network-segments';
         value: number | NetworkSegment;
+      } | null)
+    | ({
+        relationTo: 'software';
+        value: number | Software;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -450,14 +471,15 @@ export interface ServicesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   category?: T;
-  'service-criticality'?: T;
+  serviceCriticality?: T;
   applications?: T;
+  networkSegment?: T;
   users?: T;
-  'business-team'?: T;
-  'technology-team'?: T;
+  businessTeams?: T;
+  technologyTeams?: T;
   vendor?: T;
   cardholderData?: T;
-  'lifecycle-status'?: T;
+  lifecycleStatus?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -473,6 +495,7 @@ export interface ApplicationsSelect<T extends boolean = true> {
   versionControl?: T;
   cardholderData?: T;
   'lifecycle-status'?: T;
+  vendor?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -578,6 +601,7 @@ export interface ServersSelect<T extends boolean = true> {
   type?: T;
   ipAddress?: T;
   networkSegment?: T;
+  installedSoftware?: T;
   'lifecycle-status'?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -598,6 +622,17 @@ export interface ServerTypesSelect<T extends boolean = true> {
 export interface NetworkSegmentsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "software_select".
+ */
+export interface SoftwareSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  vendor?: T;
   updatedAt?: T;
   createdAt?: T;
 }
