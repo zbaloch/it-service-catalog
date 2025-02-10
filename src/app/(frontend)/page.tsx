@@ -28,12 +28,12 @@ export default async function HomePage() {
             <p className="mt-2 text-sm text-gray-700">List of all IT services</p>
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <button
+            {/* <button
               type="button"
               className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Add user
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="mt-8 flow-root">
@@ -151,7 +151,7 @@ export default async function HomePage() {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <div>
           {services.docs.map((service: any) => (
             <div key={service.id}>
@@ -167,7 +167,7 @@ export default async function HomePage() {
         <p>
           <a href="https://payloadcms.com/docs">Documentation</a>
         </p>
-      </div>
+      </div> */}
     </>
   )
 }
