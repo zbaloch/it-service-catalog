@@ -40,7 +40,7 @@ export const Servers: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'lifecycle-status',
+      name: 'lifecycleStatus',
       label: 'Lifecycle Status',
       type: 'relationship',
       relationTo: 'lifecycle-status',
