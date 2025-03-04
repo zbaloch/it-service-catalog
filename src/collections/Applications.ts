@@ -52,11 +52,5 @@ export const Applications: CollectionConfig = {
       type: 'relationship',
       relationTo: 'lifecycle-status',
     },
-    {
-      name: 'vendor',
-      label: 'Vendor',
-      type: 'relationship',
-      relationTo: 'vendors',
-    },
   ],
 }

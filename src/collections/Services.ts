@@ -37,12 +37,6 @@ export const Services: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'networkSegment',
-      label: 'Network Segment',
-      type: 'relationship',
-      relationTo: 'network-segments',
-    },
-    {
       name: 'users',
       label: 'Users',
       type: 'relationship',

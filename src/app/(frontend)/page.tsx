@@ -12,7 +12,7 @@ export default async function HomePage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
-  const services = await payload.find({ collection: 'services', depth: 3 })
+  const services = await payload.find({ collection: 'services', depth: 4 })
 
   console.log('services', services)
   console.log('databases', services.docs[0].applications[0].databases)
@@ -28,12 +28,12 @@ export default async function HomePage() {
             <p className="mt-2 text-sm text-gray-700">List of all IT services</p>
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <button
+            {/* <button
               type="button"
               className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Add user
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="mt-8 flow-root">
@@ -97,8 +97,22 @@ export default async function HomePage() {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {service.applications?.map((application) => (
                           <>
-                            <span className="block font-medium">{application.name}</span>
-                            <span className="block">{application.server.name}</span>
+                            <div className="mb-2">
+                              <span className="block font-medium">{application.name}</span>
+                              <span className="block">{application.server.name}</span>
+                              <span className="block">{application.server.ipAddress}</span>
+                              <span className="block">
+                                {application.server.networkSegment.name}
+                              </span>
+                              <span className="block">{application.versionControl}</span>
+
+                              <span className="block">
+                                {application.server.cardholderData ? 'CHD' : 'No CHD'}
+                              </span>
+                              <span className="block">
+                                {application.server.lifecycleStatus.name}
+                              </span>
+                            </div>
                           </>
                         ))}
                       </td>
@@ -107,8 +121,22 @@ export default async function HomePage() {
                           <>
                             {application.databases?.map((database) => (
                               <>
-                                <span className="block font-medium">{database.name}</span>
-                                <span className="block">{database.server.name}</span>
+                                <div className="mb-2">
+                                  <span className="block font-medium">{database.name}</span>
+                                  <span className="block">{database.server.name}</span>
+                                  <span className="block">{database.server.ipAddress}</span>
+                                  <span className="block">
+                                    {database.server.networkSegment?.name}
+                                  </span>
+                                  <span className="block">{database.versionControl}</span>
+
+                                  <span className="block">
+                                    {database.server.cardholderData ? 'CHD' : 'No CHD'}
+                                  </span>
+                                  <span className="block">
+                                    {database.server.lifecycleStatus?.name}
+                                  </span>
+                                </div>
                               </>
                             ))}
                           </>
@@ -151,7 +179,7 @@ export default async function HomePage() {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <div>
           {services.docs.map((service: any) => (
             <div key={service.id}>
@@ -167,7 +195,7 @@ export default async function HomePage() {
         <p>
           <a href="https://payloadcms.com/docs">Documentation</a>
         </p>
-      </div>
+      </div> */}
     </>
   )
 }

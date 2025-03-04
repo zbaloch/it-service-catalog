@@ -188,7 +188,6 @@ export interface Service {
   category?: (number | null) | ServiceCategory;
   serviceCriticality?: (number | null) | ServiceCriticality;
   applications?: (number | Application)[] | null;
-  networkSegment?: (number | null) | NetworkSegment;
   users?: (number | CustomerType)[] | null;
   businessTeams?: (number | BusinessTeam)[] | null;
   technologyTeams?: (number | TechnologyTeam)[] | null;
@@ -239,7 +238,6 @@ export interface Application {
   versionControl?: string | null;
   cardholderData?: boolean | null;
   'lifecycle-status'?: (number | null) | LifecycleStatus;
-  vendor?: (number | null) | Vendor;
   updatedAt: string;
   createdAt: string;
 }
@@ -268,7 +266,7 @@ export interface Server {
    */
   networkSegment?: (number | null) | NetworkSegment;
   installedSoftware?: (number | Software)[] | null;
-  'lifecycle-status'?: (number | null) | LifecycleStatus;
+  lifecycleStatus?: (number | null) | LifecycleStatus;
   updatedAt: string;
   createdAt: string;
 }
@@ -545,7 +543,6 @@ export interface ServicesSelect<T extends boolean = true> {
   category?: T;
   serviceCriticality?: T;
   applications?: T;
-  networkSegment?: T;
   users?: T;
   businessTeams?: T;
   technologyTeams?: T;
@@ -568,7 +565,6 @@ export interface ApplicationsSelect<T extends boolean = true> {
   versionControl?: T;
   cardholderData?: T;
   'lifecycle-status'?: T;
-  vendor?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -675,7 +671,7 @@ export interface ServersSelect<T extends boolean = true> {
   ipAddress?: T;
   networkSegment?: T;
   installedSoftware?: T;
-  'lifecycle-status'?: T;
+  lifecycleStatus?: T;
   updatedAt?: T;
   createdAt?: T;
 }
