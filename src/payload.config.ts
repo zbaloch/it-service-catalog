@@ -23,17 +23,14 @@ import { Servers } from './collections/Servers'
 import { ServerTypes } from './collections/ServerTypes'
 import { NetworkSegments } from './collections/NetworkSegments'
 import { Software } from './collections/Software'
+import { Frameworks } from './collections/Frameworks'
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  admin: {
-    user: Users.slug,
-    importMap: {
-      baseDir: path.resolve(dirname),
-    },
-  },
+  admin: { user: Users.slug, importMap: { baseDir: path.resolve(dirname) } },
   collections: [
     Users,
     Media,
@@ -51,17 +48,19 @@ export default buildConfig({
     ServerTypes,
     NetworkSegments,
     Software,
+    Frameworks,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
-  typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
+  typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
+  // db: sqliteAdapter({
+  //   client: { url: process.env.DATABASE_URL || 'file:./it_service_catalogue.db' },
+  // }),
   sharp,
   plugins: [
     payloadCloudPlugin(),

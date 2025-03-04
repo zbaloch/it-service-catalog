@@ -18,6 +18,12 @@ export const Applications: CollectionConfig = {
       type: 'textarea',
     },
     {
+      name: 'framework',
+      label: 'Framework',
+      type: 'relationship',
+      relationTo: 'frameworks',
+    },
+    {
       name: 'server',
       label: 'Server',
       type: 'relationship',
