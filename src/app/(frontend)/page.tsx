@@ -102,7 +102,7 @@ export default async function HomePage() {
                               <span className="block">{application.server.name}</span>
                               <span className="block">{application.server.ipAddress}</span>
                               <span className="block">
-                                {application.server.networkSegment.name}
+                                {application.server.networkSegment?.name}
                               </span>
                               <span className="block">{application.versionControl}</span>
 
@@ -110,7 +110,7 @@ export default async function HomePage() {
                                 {application.server.cardholderData ? 'CHD' : 'No CHD'}
                               </span>
                               <span className="block">
-                                {application.server.lifecycleStatus.name}
+                                {application.server.lifecycleStatus?.name}
                               </span>
                             </div>
                           </>
